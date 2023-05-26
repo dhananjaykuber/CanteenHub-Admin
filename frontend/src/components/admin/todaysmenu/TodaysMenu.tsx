@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../../firebase';
-import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from 'firebase/firestore';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,10 +22,13 @@ const TodaysMenu = () => {
   const [image, setImage] = useState<File>();
   const [name, setName] = useState<string>(' ');
 
+  const [price, setPrice] = useState<number>(60);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getMenus();
+    getPrice();
   }, []);
 
   const getMenus = () => {
@@ -28,15 +38,23 @@ const TodaysMenu = () => {
       let tempMenus: TodaysMenuInterface[] = [];
 
       querySnapshot.forEach((doc) => {
-        tempMenus.push({
-          id: doc.id,
-          image: doc.data().image,
-          name: doc.data().name,
-          imageRef: doc.data().imageRef,
-        });
+        if (doc.id !== 'price') {
+          tempMenus.push({
+            id: doc.id,
+            image: doc.data().image,
+            name: doc.data().name,
+            imageRef: doc.data().imageRef,
+          });
+        }
       });
 
       setMenus(tempMenus);
+    });
+  };
+
+  const getPrice = () => {
+    onSnapshot(doc(db, 'todaysmenus', 'price'), (doc) => {
+      setPrice(doc.data()?.price);
     });
   };
 
@@ -100,49 +118,82 @@ const TodaysMenu = () => {
     }
   };
 
+  const handleUpdatePrice = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const priceReference = doc(db, 'todaysmenus', 'price');
+
+    await updateDoc(priceReference, { price: price });
+  };
+
   return (
     <div>
       <div className="text-xl font-medium">Todays Menu</div>
 
-      <form
-        className="w-[400px] mt-10 shadow-xl px-10 py-10 rounded-lg"
-        onSubmit={handleAddMenu}
-      >
-        <label className="block mb-4">
-          <span className="block text-sm font-medium text-slate-700 mb-1">
-            Choose menu photo
-          </span>
-          <input
-            required
-            type="file"
-            accept="image/*"
-            className="block w-full text-sm text-slate-500 file:mr-4 file:py-1 file:px-3
+      <div className="flex space-x-10">
+        <form
+          className="w-[400px] mt-10 shadow-xl px-10 py-10 rounded-lg"
+          onSubmit={handleAddMenu}
+        >
+          <label className="block mb-4">
+            <span className="block text-sm font-medium text-slate-700 mb-1">
+              Choose menu photo
+            </span>
+            <input
+              required
+              type="file"
+              accept="image/*"
+              className="block w-full text-sm text-slate-500 file:mr-4 file:py-1 file:px-3
       file:rounded-full file:border-0
       file:text-sm file:font-medium
       file:bg-slate-200 file:text-slate-600
       hover:file:bg-slate-300 outline-none"
-            onChange={(file) => handleFileChange(file.target.files)}
-          />
-        </label>
+              onChange={(file) => handleFileChange(file.target.files)}
+            />
+          </label>
 
-        <label className="block mb-4">
-          <span className="block text-sm font-medium text-slate-700 mb-1">
-            Name
-          </span>
-          <input
-            required
-            type="text"
-            placeholder="Name"
-            className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-full"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+          <label className="block mb-4">
+            <span className="block text-sm font-medium text-slate-700 mb-1">
+              Name
+            </span>
+            <input
+              required
+              type="text"
+              placeholder="Name"
+              className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-full"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
 
-        <button className="bg-slate-700 px-5 py-2 rounded-lg text-sm text-white border hover:bg-white hover:text-slate-700 hover:border-slate-700 transition">
-          {loading ? 'Adddding...' : 'Add Menu'}
-        </button>
-      </form>
+          <button className="bg-slate-700 px-5 py-2 rounded-lg text-sm text-white border hover:bg-white hover:text-slate-700 hover:border-slate-700 transition">
+            {loading ? 'Adddding...' : 'Add Menu'}
+          </button>
+        </form>
+
+        <form
+          className="w-[400px] mt-10 shadow-xl px-10 py-10 rounded-lg"
+          onSubmit={handleUpdatePrice}
+        >
+          <label className="block mb-4">
+            <span className="block text-sm font-medium text-slate-700 mb-1">
+              Price
+            </span>
+            <input
+              required
+              type="text"
+              placeholder="Name"
+              className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-full"
+              value={price}
+              onChange={(e) => setPrice(parseInt(e.target.value))}
+            />
+          </label>
+
+          <button className="bg-slate-700 px-5 py-2 rounded-lg text-sm text-white border hover:bg-white hover:text-slate-700 hover:border-slate-700 transition">
+            Update Price
+          </button>
+        </form>
+      </div>
 
       <ToastContainer />
 
