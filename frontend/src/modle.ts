@@ -21,6 +21,7 @@ export interface OrderInterface {
   date: string;
   email: string;
   name: string;
+  phone: string;
   total: number;
   served: boolean;
   items: [OrderItemInterface];
@@ -44,4 +45,5 @@ export interface TodaysMenuInterface {
   image: string;
   name: string;
   imageRef?: Number;
+  today: boolean;
 }

@@ -36,13 +36,13 @@ const UpdateMenus = () => {
 
   return (
     <div>
-      <div className="flex-1 flex justify-between mt-5">
+      <div className="mt-5">
         <div className="text-xl font-medium">Update Menus</div>
         <input
           required
           type="text"
           placeholder="Search..."
-          className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-72"
+          className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-72 my-5"
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>

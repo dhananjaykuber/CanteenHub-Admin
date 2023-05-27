@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPencilAlt } from 'react-icons/fa';
+import { FaFastBackward, FaFastForward, FaPencilAlt } from 'react-icons/fa';
 import { TodaysMenuInterface } from '../../../modle';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -41,6 +41,14 @@ const Menu: React.FC<Props> = ({ menu }) => {
     if (files && files[0].size < 10000000) {
       setImage(files[0]);
     }
+  };
+
+  const addOrRemoveFromMenus = async (value: boolean) => {
+    const menuReference = doc(db, 'todaysmenus', menu.id);
+
+    updateDoc(menuReference, {
+      today: value,
+    });
   };
 
   const handleDelete = async () => {
@@ -140,23 +148,44 @@ const Menu: React.FC<Props> = ({ menu }) => {
 
         <div className="flex items-center justify-between">
           <div className="text-sm text-slate-700 font-medium">{menu.name}</div>
-          <div className="flex items-center space-x-2">
-            <FaTrashAlt
-              color="#fa2020"
-              cursor={'pointer'}
-              size={13}
-              onClick={() => {
-                handleDelete();
-              }}
-            />
-            <FaPencilAlt
-              size={12}
-              className="cursor-pointer"
-              onClick={() => {
-                setShowModal(true);
-              }}
-            />
-          </div>
+          {!menu.today ? (
+            <div className="flex items-center space-x-2">
+              <FaTrashAlt
+                color="#fa2020"
+                cursor={'pointer'}
+                size={13}
+                onClick={() => {
+                  handleDelete();
+                }}
+              />
+              <FaPencilAlt
+                size={12}
+                className="cursor-pointer"
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              />
+              <FaFastForward
+                size={15}
+                className="cursor-pointer"
+                color="green"
+                onClick={() => {
+                  addOrRemoveFromMenus(true);
+                }}
+              />
+            </div>
+          ) : (
+            <div>
+              <FaFastBackward
+                size={15}
+                className="cursor-pointer"
+                color="red"
+                onClick={() => {
+                  addOrRemoveFromMenus(false);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 

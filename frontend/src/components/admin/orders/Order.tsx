@@ -33,12 +33,23 @@ const Order: React.FC<Props> = ({ order }) => {
     });
   };
 
+  console.log(order);
+
   return (
     <div className="w-[300px] shadow-lg bg-white p-6 rounded-lg m-3">
       <div className="text-sm font-semibold">{order.name}</div>
-      <div className="text-sm font-semibold border-b-[2px] border-slate-200 pb-3">
-        {order.email}
-      </div>
+      {order.phone.length === 10 ? (
+        <>
+          <div className="text-sm font-semibold">{order.email}</div>
+          <div className="text-sm font-semibold border-b-[2px] border-slate-200 pb-3">
+            {order.phone}
+          </div>
+        </>
+      ) : (
+        <div className="text-sm font-semibold border-b-[2px] border-slate-200 pb-3">
+          {order.email}
+        </div>
+      )}
       <div className="text-sm font-semibold mt-3">Order #{order.id}</div>
       <p className="text-xs font-medium text-slate-400">{order.date}</p>
 

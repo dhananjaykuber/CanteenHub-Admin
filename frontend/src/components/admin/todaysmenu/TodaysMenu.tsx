@@ -18,6 +18,7 @@ import Menu from './Menu';
 const TodaysMenu = () => {
   const [menus, setMenus] = useState<TodaysMenuInterface[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [todaysMenus, setTodaysMenus] = useState<TodaysMenuInterface[]>([]);
 
   const [image, setImage] = useState<File>();
   const [name, setName] = useState<string>(' ');
@@ -35,20 +36,33 @@ const TodaysMenu = () => {
     const menusReference = collection(db, 'todaysmenus');
 
     onSnapshot(menusReference, (querySnapshot) => {
-      let tempMenus: TodaysMenuInterface[] = [];
+      let tempAllMenus: TodaysMenuInterface[] = [];
+      let tempTodaysMenus: TodaysMenuInterface[] = [];
 
       querySnapshot.forEach((doc) => {
         if (doc.id !== 'price') {
-          tempMenus.push({
-            id: doc.id,
-            image: doc.data().image,
-            name: doc.data().name,
-            imageRef: doc.data().imageRef,
-          });
+          if (doc.data().today) {
+            tempTodaysMenus.push({
+              id: doc.id,
+              image: doc.data().image,
+              name: doc.data().name,
+              imageRef: doc.data().imageRef,
+              today: doc.data().today,
+            });
+          } else {
+            tempAllMenus.push({
+              id: doc.id,
+              image: doc.data().image,
+              name: doc.data().name,
+              imageRef: doc.data().imageRef,
+              today: doc.data().today,
+            });
+          }
         }
       });
 
-      setMenus(tempMenus);
+      setMenus(tempAllMenus);
+      setTodaysMenus(tempTodaysMenus);
     });
   };
 
@@ -58,8 +72,8 @@ const TodaysMenu = () => {
     });
   };
 
-  const success = () => {
-    toast.success(`${name} added successfully!`, {
+  const success = (message: string) => {
+    toast.success(`${message}`, {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
@@ -67,7 +81,7 @@ const TodaysMenu = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light',
+      theme: 'dark',
     });
   };
 
@@ -97,9 +111,10 @@ const TodaysMenu = () => {
               name: name,
               imageRef: time,
               type: snapshot.metadata.contentType?.split('/')[1],
+              today: false,
             })
               .then(() => {
-                success();
+                success(`${name} added successfully!`);
 
                 setImage(undefined);
                 setName('');
@@ -124,6 +139,8 @@ const TodaysMenu = () => {
     const priceReference = doc(db, 'todaysmenus', 'price');
 
     await updateDoc(priceReference, { price: price });
+
+    success('Price updated successfully!');
   };
 
   return (
@@ -197,13 +214,23 @@ const TodaysMenu = () => {
 
       <ToastContainer />
 
-      <div className="flex-1 flex justify-between mt-14">
-        <div className="text-xl font-medium">Menus</div>
+      <div className="mt-14">
+        <div className="text-xl font-medium">Todays Available Menus</div>
+      </div>
+
+      <div className="flex flex-wrap mt-5">
+        {todaysMenus.map((menu) => (
+          <Menu key={menu.id} menu={menu} />
+        ))}
+      </div>
+
+      <div className="mt-14">
+        <div className="text-xl font-medium">All Menus</div>
         <input
           required
           type="text"
           placeholder="Search..."
-          className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-72"
+          className="border border-slate-300 rounded-md outline-none text-sm shadow-sm px-3 py-2 placeholder-slate-400 w-72 my-5"
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>

@@ -48,6 +48,7 @@ const History = () => {
           date: doc.data().date,
           email: doc.data().email,
           name: doc.data().name,
+          phone: doc.data().phone ? doc.data().phone : '',
           total: doc.data().total,
           served: doc.data().served,
           items: doc.data().items,
@@ -68,7 +69,7 @@ const History = () => {
     <div>
       <div className="text-xl font-medium">History</div>
 
-      <div className="flex-1 flex justify-between w-[265%] mt-5">
+      <div className="mt-5">
         <input
           required
           type="text"
@@ -79,7 +80,7 @@ const History = () => {
         />
         <input
           type="date"
-          className="border border-slate-400 p-2 rounded-md text-sm outline-none"
+          className="border border-slate-400 p-2 rounded-md text-sm outline-none ml-5"
           onChange={(e) => dateChange(e)}
         />
       </div>
