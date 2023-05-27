@@ -23,4 +23,24 @@ https://canteenhub.onrender.com/
 
 ## Screenshots
 
-![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2FScreenshot%202023-05-27%20183152.png?alt=media&token=cb7f80ed-04bc-4467-ac3e-db0c8fd4c9f8)
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-1.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-2.png.png?alt=media&token=3bd40185-6111-40df-91df-7cfb9a2c88af)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-3.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-4.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-5.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-6.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-7.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-8.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-9.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-10.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
+
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/canteenhub-ef590.appspot.com/o/screenshots%2Fcanteenhub%20admin%20-%20screen-11.png.png?alt=media&token=edbd452a-eeb2-46a6-8f7d-fe805de9dcef)
